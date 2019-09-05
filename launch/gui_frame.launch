@@ -1,0 +1,5 @@
+<launch>
+
+  <node pkg="my_rqt_pkg" name="gui" type="gui_frame.py" />
+
+</launch>
