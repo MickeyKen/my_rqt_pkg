@@ -18,16 +18,21 @@ class Example(QWidget):
     def initUI(self):
 
         # ラベル作成、初期の名前をUbuntuにする
-        self.lbl = QLabel("Ubuntu", self)
+        self.lbl = QLabel("Motion", self)
 
         # QComboBoxオブジェクトの作成
         combo = QComboBox(self)
         # アイテムの名前設定
-        combo.addItem("Ubuntu")
-        combo.addItem("Mandriva")
-        combo.addItem("Fedora")
-        combo.addItem("Arch")
-        combo.addItem("Gentoo")
+        combo.addItem("acceleration")
+        combo.addItem("forward")
+        combo.addItem("rotation")
+        combo.addItem("turning")
+        combo.addItem("pause")
+        combo.addItem("stop")
+        combo.addItem("slowstop")
+        combo.addItem("detect")
+        combo.addItem("e")
+        combo.addItem("end")
 
         combo.move(50, 50)
         self.lbl.move(50, 150)

@@ -21,14 +21,19 @@ class Ui_Second(object):
         self.label.setObjectName("label")
 
         self.combo = QtWidgets.QComboBox(Form)
-        self.combo.addItem("Ubuntu")
-        self.combo.addItem("Mandriva")
-        self.combo.addItem("Fedora")
-        self.combo.addItem("Arch")
-        self.combo.addItem("Gentoo")
+        self.combo.addItem("acceleration")
+        self.combo.addItem("forward")
+        self.combo.addItem("rotation")
+        self.combo.addItem("turning")
+        self.combo.addItem("pause")
+        self.combo.addItem("stop")
+        self.combo.addItem("slowstop")
+        self.combo.addItem("detect")
+        self.combo.addItem("e")
+        self.combo.addItem("end")
         self.combo.move(50, 100)
         # self.combo.setGeometry(QtCore.QRect(300, 300, 300, 200))
-        self.label.setObjectName("Motion")
+        self.combo.activated[str].connect(self.onActivated)
 
         self.textBrowser = QtWidgets.QTextBrowser(Form)
         self.textBrowser.setGeometry(QtCore.QRect(80, 60, 256, 41))
@@ -41,11 +46,7 @@ class Ui_Second(object):
         self.imageLabel = QtWidgets.QLabel(Form)
         path = rospkg.RosPack().get_path('my_rqt_pkg') + '/scripts/color_image.png'
         self.imageLabel.setPixmap(QtGui.QPixmap(path))
-        self.imageLabel.move(10,10)
-        # self.imageLabel.scaleFactor = 1.0
-        # self.layout = QVBoxLayout()
-        # self.layout.addWidget(self.imageLabel)
-        # Form.setLayout(self.layout)
+        self.imageLabel.move(300,300)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -56,3 +57,9 @@ class Ui_Second(object):
         self.label.setText(_translate("Form", "TextLabel"))
         # self.combo.setText(_translate("Form", "Motion"))
         self.commandLinkButton.setText(_translate("Form", "CommandLinkButton"))
+
+    def onActivated(self, text):
+
+        self.label.setText(text)
+
+        self.label.adjustSize()
