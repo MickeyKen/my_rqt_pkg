@@ -3,6 +3,7 @@
 import sys
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 from tutorial import Ui_Form
 from first import Ui_First
 from second import Ui_Second
@@ -17,6 +18,9 @@ class Test(QDialog):
         super(Test, self).__init__(parent)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
+        p = self.palette()
+        p.setColor(self.backgroundRole(), Qt.lightGray)
+        self.setPalette(p)
 
         # ROS。pubの設定。
         self.cmd_vel_Twist = Twist()
@@ -27,12 +31,14 @@ class Test(QDialog):
         self.cmd_vel_Twist.angular.z = 1 # 1[rad/s]で左に回転
         self.pub_cmd_vel.publish(self.cmd_vel_Twist)
         self.cmd_vel_Twist.angular.z = 0
+        window3.showMaximized()
 
     def slam(self):
 
         self.cmd_vel_Twist.linear.x = 1 # 1[m/s]で直進
         self.pub_cmd_vel.publish(self.cmd_vel_Twist)
         self.cmd_vel_Twist.linear.x = 0
+        window2.showMaximized()
 
     def create(self):
         ROS_PROGRAM = QProcess(self)
@@ -53,10 +59,32 @@ class Test(QDialog):
     #     self.uif.show()  # 遷移後のダイアログを表示
     #     self.ui.hide()  # 遷移前のダイアログを非表示
 
+class Test2(QDialog):
+    def __init__(self,parent=None):
+        # GUI。
+        super(Test2, self).__init__(parent)
+        self.uis = Ui_Second()
+        self.uis.setupUi(self)
+
+class Test3(QDialog):
+    def __init__(self,parent=None):
+        # GUI。
+        super(Test3, self).__init__(parent)
+        self.uis = Ui_First()
+        self.uis.setupUi(self)
+
+    def show(self):
+        pass
+    def sample(self):
+        pass
+    def motor(self):
+        pass
 
 if __name__ == '__main__':
     rospy.init_node('turtlesim_talker')
     app = QApplication(sys.argv)
     window = Test()
-    window.show()
+    window2 = Test2()
+    window3 = Test3()
+    window.showMaximized()
     sys.exit(app.exec_())
