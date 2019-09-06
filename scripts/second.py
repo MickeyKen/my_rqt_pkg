@@ -9,6 +9,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QLabel, QVBoxLayout
+import rospkg
 
 class Ui_Second(object):
     def setupUi(self, Form):
@@ -36,13 +37,15 @@ class Ui_Second(object):
         self.commandLinkButton.setGeometry(QtCore.QRect(70, 140, 177, 41))
         self.commandLinkButton.setObjectName("commandLinkButton")
 
-        image = QImage('color_image.png')
-        imageLabel = QLabel()
-        imageLabel.setPixmap(QPixmap.fromImage(image))
-        imageLabel.scaleFactor = 1.0
-        imageLabel.move(100,100)
-        layout = QVBoxLayout()
-        layout.addWidget(imageLabel)
+        # image = QImage('color_image.png')
+        self.imageLabel = QtWidgets.QLabel(Form)
+        path = rospkg.RosPack().get_path('my_rqt_pkg') + '/scripts/color_image.png'
+        self.imageLabel.setPixmap(QtGui.QPixmap(path))
+        self.imageLabel.move(10,10)
+        # self.imageLabel.scaleFactor = 1.0
+        # self.layout = QVBoxLayout()
+        # self.layout.addWidget(self.imageLabel)
+        # Form.setLayout(self.layout)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
