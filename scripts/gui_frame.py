@@ -7,6 +7,7 @@ from PyQt5.QtGui import *
 from tutorial import Ui_Form
 from first import Ui_First
 from second import Ui_Second
+from radio_group import Ui_rg
 import rospy
 from geometry_msgs.msg import Twist
 import rospkg
@@ -38,7 +39,7 @@ class Test(QDialog):
         self.cmd_vel_Twist.linear.x = 1 # 1[m/s]で直進
         self.pub_cmd_vel.publish(self.cmd_vel_Twist)
         self.cmd_vel_Twist.linear.x = 0
-        window2.showMaximized()
+        window4.showMaximized()
 
     def create(self):
         ROS_PROGRAM = QProcess(self)
@@ -80,11 +81,37 @@ class Test3(QDialog):
     def motor(self):
         pass
 
+class Test4(QDialog):
+    def __init__(self,parent=None):
+        # GUI。
+        super(Test4, self).__init__(parent)
+        self.uis = Ui_rg()
+        self.uis.setupUi(self)
+        # ROS。pubの設定。
+        self.cmd_vel_Twist = Twist()
+        self.pub_cmd_vel = rospy.Publisher('/turtle1/cmd_vel',Twist,queue_size=10)
+
+
+    def bringup(self):
+
+        self.cmd_vel_Twist.linear.x = self.uis.Dynamixel_motor.checkedId()
+        self.cmd_vel_Twist.linear.y = self.uis.Lidar.checkedId()
+        self.cmd_vel_Twist.linear.z = self.uis.realsense.checkedId()
+        self.cmd_vel_Twist.angular.x = self.uis.Dynamixel_head.checkedId()
+        self.pub_cmd_vel.publish(self.cmd_vel_Twist)
+        # print self.uis.Dynamixel_motor.checkedId()
+
+        # print("Radio: %d" % self.uis.Dynamixel_motor.checkedId())
+        # window3.showMaximized()
+
+
+
 if __name__ == '__main__':
     rospy.init_node('turtlesim_talker')
     app = QApplication(sys.argv)
     window = Test()
     window2 = Test2()
     window3 = Test3()
+    window4 = Test4()
     window.showMaximized()
     sys.exit(app.exec_())
