@@ -39,7 +39,7 @@ class Test(QDialog):
         self.cmd_vel_Twist.linear.x = 1 # 1[m/s]で直進
         self.pub_cmd_vel.publish(self.cmd_vel_Twist)
         self.cmd_vel_Twist.linear.x = 0
-        window4.showMaximized()
+        window2.showMaximized()
 
     def create(self):
         ROS_PROGRAM = QProcess(self)

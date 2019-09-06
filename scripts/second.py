@@ -7,6 +7,8 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtWidgets import QLabel, QVBoxLayout
 
 class Ui_Second(object):
     def setupUi(self, Form):
@@ -33,6 +35,14 @@ class Ui_Second(object):
         self.commandLinkButton = QtWidgets.QCommandLinkButton(Form)
         self.commandLinkButton.setGeometry(QtCore.QRect(70, 140, 177, 41))
         self.commandLinkButton.setObjectName("commandLinkButton")
+
+        image = QImage('color_image.png')
+        imageLabel = QLabel()
+        imageLabel.setPixmap(QPixmap.fromImage(image))
+        imageLabel.scaleFactor = 1.0
+        imageLabel.move(100,100)
+        layout = QVBoxLayout()
+        layout.addWidget(imageLabel)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
