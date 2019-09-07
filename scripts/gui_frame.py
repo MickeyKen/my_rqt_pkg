@@ -66,6 +66,14 @@ class Test2(QDialog):
         super(Test2, self).__init__(parent)
         self.uis = Ui_Second()
         self.uis.setupUi(self)
+        # ROS。pubの設定。
+        self.cmd_vel_Twist = Twist()
+        self.pub_cmd_vel = rospy.Publisher('/turtle1/cmd_vel',Twist,queue_size=10)
+
+    def koushin(self, text):
+        self.cmd_vel_Twist.angular.z = -1 # 1[rad/s]で右に回転
+        self.pub_cmd_vel.publish(self.cmd_vel_Twist)
+        self.cmd_vel_Twist.angular.z = 0
 
 class Test3(QDialog):
     def __init__(self,parent=None):
