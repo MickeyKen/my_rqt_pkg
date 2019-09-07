@@ -8,7 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtWidgets import QLabel, QVBoxLayout
+from PyQt5.QtWidgets import QLabel, QVBoxLayout, QLineEdit
 import rospkg
 
 class Ui_Second(object):
@@ -42,11 +42,16 @@ class Ui_Second(object):
         self.commandLinkButton.setGeometry(QtCore.QRect(70, 140, 177, 41))
         self.commandLinkButton.setObjectName("commandLinkButton")
 
+        self.textBrowser2 = QtWidgets.QTextBrowser(Form)
+        self.textBrowser2.setVisible(False)
+        self.myLineEdit = QtWidgets.QLineEdit(Form)
+        self.myLineEdit.setVisible(False)
+
         # image = QImage('color_image.png')
         self.imageLabel = QtWidgets.QLabel(Form)
         path = rospkg.RosPack().get_path('my_rqt_pkg') + '/scripts/color_image.png'
         self.imageLabel.setPixmap(QtGui.QPixmap(path))
-        self.imageLabel.move(300,300)
+        self.imageLabel.move(300,700)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -61,5 +66,15 @@ class Ui_Second(object):
     def onActivated(self, text):
 
         self.label.setText(text)
+
+        if text == "stop":
+
+            self.textBrowser2.setGeometry(QtCore.QRect(160, 60, 256, 141))
+            self.textBrowser2.setObjectName("textBrowser")
+            self.textBrowser2.setVisible(True)
+            self.myLineEdit.setGeometry(QtCore.QRect(500, 300, 500, 50))
+            self.myLineEdit.setObjectName("textBrowser")
+            self.myLineEdit.setVisible(True)
+
 
         self.label.adjustSize()
